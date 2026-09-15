@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>خوارزمية تاسي الذكية | Tadawul AI Quantitative Engine</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Space Grotesk (英数科技感) + IBM Plex Sans Arabic (现代科技阿语) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'IBM Plex Sans Arabic', sans-serif;
+      background-color: #05060A;
+      background-image: 
+        radial-gradient(at 50% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.1) 0px, transparent 50%),
+        linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+    }
+    .font-tech {
+      font-family: 'Space Grotesk', 'IBM Plex Sans Arabic', sans-serif;
+    }
+    .neon-cyan-purple-gradient {
+      background: linear-gradient(135deg, #06B6D4 0%, #8B5CF6 100%);
+    }
+    .neon-text-gradient {
+      background: linear-gradient(135deg, #22D3EE 0%, #A78BFA 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .cyber-border {
+      border: 1px solid rgba(139, 92, 246, 0.25);
+      background: rgba(11, 14, 23, 0.7);
+      backdrop-filter: blur(16px);
+    }
+    .cyber-btn-glow {
+      box-shadow: 0 0 25px rgba(6, 182, 212, 0.35), 0 0 10px rgba(139, 92, 246, 0.25);
+    }
+    @keyframes pulse-scan {
+      0%, 100% { opacity: 0.2; transform: translateY(-100%); }
+      50% { opacity: 0.8; transform: translateY(100%); }
+    }
+    .scan-line {
+      animation: pulse-scan 4s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="text-slate-200 min-h-screen pb-28 selection:bg-cyan-500 selection:text-black">
+
+  <!-- 1. 顶部终端状态栏 (AI Terminal Header) -->
+  <header class="border-b border-slate-800/80 bg-[#05060A]/80 sticky top-0 z-40 backdrop-blur">
+    <div class="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between font-tech">
+      <div class="flex items-center gap-2.5">
+        <div class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></div>
+        <span class="text-xs tracking-wider text-slate-300 font-bold">TASI·NEURAL·AI</span>
+        <span class="text-[10px] px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">v4.8</span>
+      </div>
+      <div class="text-[11px] text-slate-400 flex items-center gap-1">
+        <span>معدل معالجة البيانات:</span>
+        <span class="text-cyan-400 font-mono">99.8%</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. 主体交互视窗 (Hero Section) -->
+  <main class="max-w-xl mx-auto px-4 pt-7 text-center">
+
+    <!-- AI 状态胶囊 -->
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full cyber-border text-xs font-medium text-cyan-300 mb-6">
+      <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+      <span>نموذج الذكاء الاصطناعي لرصد سيولة السوق المالي</span>
+    </div>
+
+    <!-- 主标题 (无夸大，纯客观模型定位) -->
+    <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight mb-4 tracking-tight">
+      قراءة تاسي الخوارزمية: <br>
+      <span class="neon-text-gradient">تحليل المؤشرات والبيانات بالذكاء الاصطناعي</span>
+    </h1>
+
+    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-6 max-w-md mx-auto">
+      محرك تحليلي يرصد ملايين نقاط البيانات اليومية عبر نماذج التعلّم الآلي لتصنيف قطاعات الطاقة والتقنية والبنوك وفق تدفقات السيولة المعلنة.
+    </p>
+
+    <!-- 核心特征：AI 算法量化仪表板 (Interactive Cyber Card) -->
+    <div class="cyber-border rounded-2xl p-5 text-right mb-6 relative overflow-hidden">
+      <!-- 动态扫描线模拟效果 -->
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/5 to-transparent scan-line pointer-events-none"></div>
+
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+        <span class="text-xs font-bold text-slate-200 flex items-center gap-2">
+          <span class="w-2 h-2 rounded-sm bg-purple-500"></span>
+          خلاصة تقرير المؤشرات الذكية
+        </span>
+        <span class="text-[10px] font-mono text-cyan-400 px-2 py-0.5 rounded bg-cyan-950/80 border border-cyan-800/40">LIVE MATRIX</span>
+      </div>
+
+      <!-- 3 大算法分析模块 -->
+      <div class="space-y-3">
+
+        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-cyan-400 text-lg">⚙️</span>
+            <div>
+              <p class="text-xs font-bold text-slate-100">رصد السيولة المؤسسية الكبرى</p>
+              <p class="text-[11px] text-slate-400 mt-0.5">تتبع حركة تدفق الصناديق الاستثمارية دون عواطف بشرية</p>
+            </div>
+          </div>
+          <span class="text-xs font-mono text-cyan-400 font-bold">ALPHA+</span>
+        </div>
+
+        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-purple-400 text-lg">🧬</span>
+            <div>
+              <p class="text-xs font-bold text-slate-100">تحليل استقرار التوزيعات النقدية</p>
+              <p class="text-[11px] text-slate-400 mt-0.5">مقارنة آلية للعوائد التاريخية ومعدل استدامة الأرباح</p>
+            </div>
+          </div>
+          <span class="text-xs font-mono text-purple-400 font-bold">STABLE</span>
+        </div>
+
+        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="text-indigo-400 text-lg">⚡</span>
+            <div>
+              <p class="text-xs font-bold text-slate-100">مصفوفة مشاريع رؤية 2030</p>
+              <p class="text-[11px] text-slate-400 mt-0.5">قياس ارتباط أسهم الطاقة المتجددة والتعدين بالإنفاق الحكومي</p>
+            </div>
+          </div>
+          <span class="text-xs font-mono text-indigo-400 font-bold">SCORED</span>
+        </div>
+
+      </div>
+
+      <!-- 动态数据模拟条 -->
+      <div class="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+        <span>MODEL: NEURAL-TASI-X</span>
+        <span class="text-emerald-400 flex items-center gap-1">● READY FOR EXPORT</span>
+      </div>
+    </div>
+
+    <!-- 首屏主 CTA 按钮 -->
+    <div class="mb-10">
+      <!-- 请将 966500000000 替换为您的 WhatsApp 业务号码 -->
+      <a href="https://wa.me/966500000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D8%B3%D8%AA%D9%84%D8%A7%D9%85%20%D9%85%D9%84%D8%AE%D8%B5%20%D8%AA%D9%82%D8%B1%D9%8A%D8%B1%20%D8%A7%D9%84%D8%B0%D9%83%D8%A7%D8%A1%20%D8%A7%D9%84%D8%A7%D8%B5%D8%B7%D9%86%D8%A7%D8%B9%D9%8A%20%D9%84%D9%85%D8%A4%D8%B4%D8%B1%20%D8%AA%D8%A7%D8%B3%D9%8A" 
+         target="_blank" 
+         class="w-full block neon-cyan-purple-gradient text-white font-bold text-base py-4 px-6 rounded-xl cyber-btn-glow hover:opacity-95 transform active:scale-95 transition-all">
+        <div class="flex items-center justify-center gap-3">
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+          </svg>
+          <span>تواصل عبر واتساب لاستلام التقرير الذكي</span>
+        </div>
+      </a>
+      <span class="text-[11px] text-slate-400 mt-2 block font-mono">ENCRYPTED DATA · NO REGISTRATION NEEDED</span>
+    </div>
+
+    <!-- 3. AI 算法工作逻辑（极客卡片） -->
+    <div class="text-right border-t border-slate-800/80 pt-6">
+      <h3 class="text-xs font-bold text-cyan-400 uppercase tracking-wider mb-3">كيف يعمل النموذج؟</h3>
+      <div class="grid grid-cols-2 gap-3 text-xs">
+        <div class="cyber-border rounded-xl p-3">
+          <span class="text-purple-400 font-bold block mb-1">1. تجميع البيانات</span>
+          <p class="text-slate-400 text-[11px] leading-relaxed">تحليل تلقائي للإفصاحات الرسمية وتغير نسب التملك بالسوق.</p>
+        </div>
+        <div class="cyber-border rounded-xl p-3">
+          <span class="text-cyan-400 font-bold block mb-1">2. المعالجة الفورية</span>
+          <p class="text-slate-400 text-[11px] leading-relaxed">إرسال الملخص والرسوم البيانية للمستخدم عبر محادثة واتساب آمنة.</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 4. 底部合规与免责声明 (Strict FinTech Compliance) -->
+  <footer class="max-w-xl mx-auto px-4 py-6 text-center text-[10px] text-slate-400 border-t border-slate-900 mt-6 leading-relaxed">
+    <p class="mb-2">
+      <strong>إخلاء مسؤولية تقنية ونظامية:</strong> النماذج الخوارزمية المعتمدة على الذكاء الاصطناعي هي أدوات حوسبية تجريبية لقراءة البيانات العامة والمؤشرات التاريخية. لا تقدم الخوارزميات أي استشارات مالية أو ضمانات للأرباح. أسواق المال تنطوي على مخاطر الخسارة.
+    </p>
+    <p class="text-slate-400 font-mono">© 2026 TADAWUL AI ENGINE · ALL RIGHTS RESERVED</p>
+  </footer>
+
+  <!-- 5. 移动端固定底部悬浮转化条 (Sticky Neon Cyber Bar) -->
+  <div class="fixed bottom-0 left-0 right-0 p-3 bg-[#05060A]/95 backdrop-blur border-t border-cyan-950/80 z-50 flex items-center justify-center">
+    <a href="https://wa.me/966500000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D8%B3%D8%AA%D9%84%D8%A7%D9%85%20%D9%85%D9%84%D8%AE%D8%B5%20%D8%AA%D9%82%D8%B1%D9%8A%D8%B1%20%D8%A7%D9%84%D8%B0%D9%83%D8%A7%D8%A1%20%D8%A7%D9%84%D8%A7%D8%B5%D8%B7%D9%86%D8%A7%D8%B9%D9%8A%20%D9%84%D9%85%D8%A4%D8%B4%D8%B1%20%D8%AA%D8%A7%D8%B3%D9%8A" 
+       target="_blank" 
+       class="w-full max-w-md neon-cyan-purple-gradient text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-sm cyber-btn-glow active:scale-95 transition-all">
+      <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+      </svg>
+      <span>طلب نسخة التقرير الذكي عبر واتساب</span>
+    </a>
+  </div>
+
+</body>
+</html>
