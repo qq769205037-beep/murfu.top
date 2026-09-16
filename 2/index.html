@@ -1,201 +1,390 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>خوارزمية تاسي الذكية | Tadawul AI Quantitative Engine</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Space Grotesk (英数科技感) + IBM Plex Sans Arabic (现代科技阿语) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>مجتمع تداول وأسواق المال الخليجية | ملتقى المستثمر 2026</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Arabic Font: Readex Pro & JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6 图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <style>
-    body {
-      font-family: 'IBM Plex Sans Arabic', sans-serif;
-      background-color: #05060A;
-      background-image: 
-        radial-gradient(at 50% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.1) 0px, transparent 50%),
-        linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
-    }
-    .font-tech {
-      font-family: 'Space Grotesk', 'IBM Plex Sans Arabic', sans-serif;
-    }
-    .neon-cyan-purple-gradient {
-      background: linear-gradient(135deg, #06B6D4 0%, #8B5CF6 100%);
-    }
-    .neon-text-gradient {
-      background: linear-gradient(135deg, #22D3EE 0%, #A78BFA 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .cyber-border {
-      border: 1px solid rgba(139, 92, 246, 0.25);
-      background: rgba(11, 14, 23, 0.7);
-      backdrop-filter: blur(16px);
-    }
-    .cyber-btn-glow {
-      box-shadow: 0 0 25px rgba(6, 182, 212, 0.35), 0 0 10px rgba(139, 92, 246, 0.25);
-    }
-    @keyframes pulse-scan {
-      0%, 100% { opacity: 0.2; transform: translateY(-100%); }
-      50% { opacity: 0.8; transform: translateY(100%); }
-    }
-    .scan-line {
-      animation: pulse-scan 4s ease-in-out infinite;
-    }
-  </style>
+    <style>
+        :root {
+            --wa-green: #25D366;
+            --wa-hover: #20ba59;
+            --bg-dark: #080c16;
+            --card-dark: #111726;
+            --card-border: rgba(255, 255, 255, 0.08);
+            --gold-accent: #f59e0b;
+        }
+        body {
+            font-family: 'Readex Pro', sans-serif;
+            background-color: var(--bg-dark);
+            color: #f1f5f9;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .font-mono-num { font-family: 'JetBrains Mono', monospace; }
+
+        /* 高转化呼吸光效 */
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(37, 211, 102, 0.4); }
+            50% { box-shadow: 0 0 35px rgba(37, 211, 102, 0.75); }
+        }
+        .btn-wa-glow {
+            background-color: var(--wa-green);
+            animation: pulse-glow 2.2s infinite ease-in-out;
+            transition: all 0.2s ease;
+        }
+        .btn-wa-glow:active {
+            transform: scale(0.97);
+        }
+
+        /* 基础结构卡片 */
+        .content-card {
+            background: var(--card-dark);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+        }
+
+        /* 模拟群内对话气泡 */
+        .chat-bubble-user {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            border-bottom-right-radius: 4px;
+        }
+        .chat-bubble-admin {
+            background-color: #0f372d;
+            color: #d1fae5;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-bottom-left-radius: 4px;
+        }
+    </style>
 </head>
-<body class="text-slate-200 min-h-screen pb-28 selection:bg-cyan-500 selection:text-black">
+<body class="min-h-screen pb-24">
 
-  <!-- 1. 顶部终端状态栏 (AI Terminal Header) -->
-  <header class="border-b border-slate-800/80 bg-[#05060A]/80 sticky top-0 z-40 backdrop-blur">
-    <div class="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between font-tech">
-      <div class="flex items-center gap-2.5">
-        <div class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></div>
-        <span class="text-xs tracking-wider text-slate-300 font-bold">TASI·NEURAL·AI</span>
-        <span class="text-[10px] px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">v4.8</span>
-      </div>
-      <div class="text-[11px] text-slate-400 flex items-center gap-1">
-        <span>معدل معالجة البيانات:</span>
-        <span class="text-cyan-400 font-mono">99.8%</span>
-      </div>
-    </div>
-  </header>
-
-  <!-- 2. 主体交互视窗 (Hero Section) -->
-  <main class="max-w-xl mx-auto px-4 pt-7 text-center">
-
-    <!-- AI 状态胶囊 -->
-    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full cyber-border text-xs font-medium text-cyan-300 mb-6">
-      <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
-      <span>نموذج الذكاء الاصطناعي لرصد سيولة السوق المالي</span>
-    </div>
-
-    <!-- 主标题 (无夸大，纯客观模型定位) -->
-    <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight mb-4 tracking-tight">
-      قراءة تاسي الخوارزمية: <br>
-      <span class="neon-text-gradient">تحليل المؤشرات والبيانات بالذكاء الاصطناعي</span>
-    </h1>
-
-    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-6 max-w-md mx-auto">
-      محرك تحليلي يرصد ملايين نقاط البيانات اليومية عبر نماذج التعلّم الآلي لتصنيف قطاعات الطاقة والتقنية والبنوك وفق تدفقات السيولة المعلنة.
-    </p>
-
-    <!-- 核心特征：AI 算法量化仪表板 (Interactive Cyber Card) -->
-    <div class="cyber-border rounded-2xl p-5 text-right mb-6 relative overflow-hidden">
-      <!-- 动态扫描线模拟效果 -->
-      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/5 to-transparent scan-line pointer-events-none"></div>
-
-      <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
-        <span class="text-xs font-bold text-slate-200 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-sm bg-purple-500"></span>
-          خلاصة تقرير المؤشرات الذكية
-        </span>
-        <span class="text-[10px] font-mono text-cyan-400 px-2 py-0.5 rounded bg-cyan-950/80 border border-cyan-800/40">LIVE MATRIX</span>
-      </div>
-
-      <!-- 3 大算法分析模块 -->
-      <div class="space-y-3">
-
-        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <span class="text-cyan-400 text-lg">⚙️</span>
-            <div>
-              <p class="text-xs font-bold text-slate-100">رصد السيولة المؤسسية الكبرى</p>
-              <p class="text-[11px] text-slate-400 mt-0.5">تتبع حركة تدفق الصناديق الاستثمارية دون عواطف بشرية</p>
+    <!-- 顶部状态栏：客观展示市场开盘状态与指数 -->
+    <div class="bg-black/90 border-b border-slate-800 py-2 px-4 text-xs sticky top-0 z-30 backdrop-blur-md">
+        <div class="max-w-md mx-auto flex justify-between items-center text-slate-300">
+            <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                <span class="font-bold text-white text-[11px]">مباشر تداول والأسواق الخليجية</span>
             </div>
-          </div>
-          <span class="text-xs font-mono text-cyan-400 font-bold">ALPHA+</span>
+            <span class="font-mono-num text-[11px] text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-2 py-0.5 rounded">
+                جلسة 2026 الرسمية
+            </span>
+        </div>
+    </div>
+
+    <!-- 主视觉区 (Hero Section) -->
+    <header class="p-4 pt-6 max-w-md mx-auto text-center">
+        
+        <!-- 徽章标签 -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs mb-4 font-bold">
+            <i class="fa-solid fa-crown text-xs"></i>
+            <span>مجتمع أبحاث وتحليلات الأسهم الخليجية</span>
         </div>
 
-        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <span class="text-purple-400 text-lg">🧬</span>
-            <div>
-              <p class="text-xs font-bold text-slate-100">تحليل استقرار التوزيعات النقدية</p>
-              <p class="text-[11px] text-slate-400 mt-0.5">مقارنة آلية للعوائد التاريخية ومعدل استدامة الأرباح</p>
+        <!-- 主标题 -->
+        <h1 class="text-2xl sm:text-3xl font-black text-white leading-tight mb-3">
+            انضم إلى أكبر تجمع للمستثمرين في <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-l from-emerald-400 via-teal-200 to-white">
+                الأسهم القيادية والتوزيعات النقدية
+            </span>
+        </h1>
+
+        <!-- 副标题 -->
+        <p class="text-xs text-slate-300 leading-relaxed mb-6">
+            مساحة حوارية موثوقة تضم أكثر من 3,800 متداول ومستثمر، مخصصة لمتابعة تقويم الأرباح النقدية المعتمدة، وقراءات الدفاتر المحاسبية، ورصد السيولة في تاسي والأسواق المجاورة.
+        </p>
+
+        <!-- 第 1 处 WhatsApp 转化入口（首屏） -->
+        <div class="mb-6">
+            <a href="https://chat.whatsapp.com/YOUR_GROUP_INVITE_CODE" 
+               target="_blank" 
+               class="btn-wa-glow w-full text-slate-950 font-black py-4 px-6 rounded-2xl flex items-center justify-center gap-3 text-base shadow-xl">
+                <i class="fa-brands fa-whatsapp text-2xl"></i>
+                <span>انضم إلى مجتمع الواتساب الآن (مجاناً)</span>
+            </a>
+            <div class="flex items-center justify-center gap-4 text-[10px] text-slate-400 mt-2.5">
+                <span><i class="fa-solid fa-shield-halved text-emerald-400 ml-1"></i>انضمام آمن ومجاني</span>
+                <span><i class="fa-solid fa-users text-emerald-400 ml-1"></i>+3,800 عضو متفاعل</span>
+                <span><i class="fa-solid fa-ban text-emerald-400 ml-1"></i>خالٍ من العروض التسويقية</span>
             </div>
-          </div>
-          <span class="text-xs font-mono text-purple-400 font-bold">STABLE</span>
         </div>
 
-        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <span class="text-indigo-400 text-lg">⚡</span>
-            <div>
-              <p class="text-xs font-bold text-slate-100">مصفوفة مشاريع رؤية 2030</p>
-              <p class="text-[11px] text-slate-400 mt-0.5">قياس ارتباط أسهم الطاقة المتجددة والتعدين بالإنفاق الحكومي</p>
+        <!-- 社区性质与准则卡片 -->
+        <div class="content-card p-4 text-right border-r-4 border-r-amber-500 mb-6">
+            <div class="flex items-center gap-2 mb-1.5 text-amber-400">
+                <i class="fa-solid fa-circle-info text-sm"></i>
+                <h2 class="text-xs font-bold text-white">ما هي طبيعة هذا المجتمع؟</h2>
             </div>
-          </div>
-          <span class="text-xs font-mono text-indigo-400 font-bold">SCORED</span>
+            <p class="text-[11px] text-slate-300 leading-relaxed">
+                هذا القروب ملتقى تعليمي وتحليلي مستقل، يهدف إلى دراسة الإفصاحات الرسمية المنشورة على تداول ومواقع البورصات الخليجية. لا نروج لشائعات، ولا نقدم توصيات عشوائية للشراء أو البيع، بل نرتكز كلياً على الأرقام المعلنة، والقوائم المالية، ومواعيد إحقاق حقوق المساهمين.
+            </p>
         </div>
 
-      </div>
+    </header>
 
-      <!-- 动态数据模拟条 -->
-      <div class="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-        <span>MODEL: NEURAL-TASI-X</span>
-        <span class="text-emerald-400 flex items-center gap-1">● READY FOR EXPORT</span>
-      </div>
+    <main class="p-4 max-w-md mx-auto space-y-6">
+
+        <!-- 板块一：模拟进群后的真实交流场景（消除陌生感与防御心理） -->
+        <section class="space-y-3">
+            <div class="text-right">
+                <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider block">معاينة حية من الداخل</span>
+                <h2 class="text-base font-extrabold text-white">كيف تدور النقاشات اليومية داخل القروب؟</h2>
+                <p class="text-[11px] text-slate-400">نماذج واقعية من الحوارات والردود التي يتلقاها الأعضاء يومياً:</p>
+            </div>
+
+            <div class="content-card p-4 space-y-3.5">
+                
+                <!-- 问答模拟 1：分红时间节点 -->
+                <div class="space-y-2">
+                    <div class="chat-bubble-user p-3 rounded-xl text-right text-xs max-w-[90%] mr-auto">
+                        <span class="text-[10px] text-slate-400 block mb-0.5 font-bold">أبو فهد (مستثمر في تاسي):</span>
+                        السلام عليكم، هل صدر إعلان رسمي بشأن تاريخ أحقية التوزيعات النقدية لأرامكو للربع الحالي؟
+                    </div>
+                    <div class="chat-bubble-admin p-3 rounded-xl text-right text-xs max-w-[92%] ml-auto">
+                        <span class="text-[10px] text-emerald-400 block mb-0.5 font-bold">فريق رصد الإفصاحات:</span>
+                        وعليكم السلام. نعم، وفق الإفصاح المنشور عبر تداول، تم تحديد تاريخ الاستحقاق للمساهمين المقيدين، وسيبدأ الإيداع الفعلي في الحسابات البنكية بعد أسبوعين من تاريخ انعقاد الجمعية. الملف المحاسبي الكامل متوفر في مثبت القروب.
+                    </div>
+                </div>
+
+                <div class="border-t border-slate-800/80 my-2"></div>
+
+                <!-- 问答模拟 2：银行股与资产稳健度 -->
+                <div class="space-y-2">
+                    <div class="chat-bubble-user p-3 rounded-xl text-right text-xs max-w-[90%] mr-auto">
+                        <span class="text-[10px] text-slate-400 block mb-0.5 font-bold">مستثمر من الإمارات:</span>
+                        كيف ترون مستويات كفاية رأس المال لمصرف الراجحي وبنك أبوظبي الأول مقارنة بنسب الودائع الحالية؟
+                    </div>
+                    <div class="chat-bubble-admin p-3 rounded-xl text-right text-xs max-w-[92%] ml-auto">
+                        <span class="text-[10px] text-emerald-400 block mb-0.5 font-bold">فريق رصد الإفصاحات:</span>
+                        الأرقام المعلنة بالقوائم السنوية تعكس تغطية سيولة ممتازة تفوق 160%، مع استقرار هوامش الربحية التشغيلية. تم وضع مقارنة إحصائية تفصيلية بين أداء المصارف في تقرير الجلسة الصباحي.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 第 2 处转化卡片（中场提示） -->
+        <div class="p-4 rounded-2xl bg-gradient-to-r from-emerald-950/40 to-slate-900 border border-emerald-500/30 text-center">
+            <h3 class="text-xs font-bold text-white mb-1">هل لديك استفسار حول أحد الأسهم أو إفصاحات الأرباح؟</h3>
+            <p class="text-[11px] text-slate-300 mb-3">
+                اطرح سؤالك في أي وقت داخل المجموعة وتلقَّ قراءة محاسبية موثقة من زملائك المستثمرين.
+            </p>
+            <a href="https://chat.whatsapp.com/YOUR_GROUP_INVITE_CODE" 
+               target="_blank" 
+               class="btn-wa-glow inline-flex items-center justify-center gap-2 text-slate-950 font-black py-2.5 px-6 rounded-xl text-xs">
+                <i class="fa-brands fa-whatsapp text-lg"></i>
+                <span>انضم للنقاش المباشر الآن</span>
+            </a>
+        </div>
+
+        <!-- 板块二：进群好处与核心权益体系 (What You Get) -->
+        <section class="space-y-3">
+            <div class="text-right">
+                <span class="text-[10px] font-bold text-amber-400 uppercase tracking-wider block">القيمة المضافة للأعضاء</span>
+                <h2 class="text-base font-extrabold text-white">ما الذي ستجنيه فعلياً من وجودك في القروب؟</h2>
+            </div>
+
+            <div class="grid grid-cols-1 gap-2.5">
+                
+                <div class="content-card p-3.5 text-right flex items-start gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
+                        <i class="fa-solid fa-calendar-days text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-bold text-white">1. تقويم التوزيعات النقدية المعتمدة لعام 2026</h3>
+                        <p class="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
+                            جدولة مرتبة زمنياً لمواعيد انعقاد الجمعيات العمومية وتاريخ أحقية وصرف العوائد النقدية لكبرى شركات السوق (أرامكو، سابك، stc، أكوا باور).
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-card p-3.5 text-right flex items-start gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-cyan-500/15 text-cyan-400 flex items-center justify-center shrink-0 mt-0.5">
+                        <i class="fa-solid fa-newspaper text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-bold text-white">2. موجز الإفصاحات الصباحية (قبل افتتاح التداول)</h3>
+                        <p class="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
+                            نشرة مركزة تلخص جميع إعلانات الشركات ونتائج أعمالها المنشورة ليلاً، مما يوفر عليك قراءة عشرات التقارير المطولة.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-card p-3.5 text-right flex items-start gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center shrink-0 mt-0.5">
+                        <i class="fa-solid fa-chart-line text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-bold text-white">3. رصد مستويات الدعم والمقاومة التاريخية</h3>
+                        <p class="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
+                            قراءة رقمية لأحجام التداول والسيولة المؤسسية لأسهم النمو وأسهم التحول الرقمي (عِلم، سلوشنز) لمساعدتك على اتخاذ قرار عقلاني.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-card p-3.5 text-right flex items-start gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-purple-500/15 text-purple-400 flex items-center justify-center shrink-0 mt-0.5">
+                        <i class="fa-solid fa-shield-heart text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-bold text-white">4. بيئة خالية من الإعلانات والشائعات</h3>
+                        <p class="text-[11px] text-slate-400 mt-0.5 leading-relaxed">
+                            إشراف مستمر يمنع أي روابط مشبوهة أو ترويج لمنتجات فوركس أو محافظ مجهولة. المجتمع مكرس حصرياً للمعرفة المالية.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 板块三：四大核心板块覆盖图谱 -->
+        <section class="space-y-3">
+            <div class="text-right">
+                <span class="text-[10px] font-bold text-cyan-400 uppercase tracking-wider block">نطاق المتابعة</span>
+                <h2 class="text-base font-extrabold text-white">القطاعات والشركات محل الرصد اليومي</h2>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 text-right text-xs">
+                <div class="content-card p-3">
+                    <span class="text-amber-400 font-bold block text-[11px] mb-1">قطاع الطاقة والمرافق</span>
+                    <p class="text-[10px] text-slate-400 leading-relaxed">أرامكو السعودية، أكوا باور، أدنوك، سابك للمغذيات.</p>
+                </div>
+                <div class="content-card p-3">
+                    <span class="text-emerald-400 font-bold block text-[11px] mb-1">القطاع المصرفي</span>
+                    <p class="text-[10px] text-slate-400 leading-relaxed">الراجحي، بيتك، بنك أبوظبي الأول، الإنماء.</p>
+                </div>
+                <div class="content-card p-3">
+                    <span class="text-cyan-400 font-bold block text-[11px] mb-1">التحول الرقمي والتقنية</span>
+                    <p class="text-[10px] text-slate-400 leading-relaxed">شركة عِلم، سلوشنز، إي آند، stc السعودية.</p>
+                </div>
+                <div class="content-card p-3">
+                    <span class="text-purple-400 font-bold block text-[11px] mb-1">الرعاية الصحية والصناعة</span>
+                    <p class="text-[10px] text-slate-400 leading-relaxed">سليمان الحبيب، المواساة، معادن، ينساب.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 板块四：常见问答（FAQ） -->
+        <section class="space-y-3">
+            <div class="text-right">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">الأسئلة الشائعة</span>
+                <h2 class="text-base font-extrabold text-white">كل ما ترغب في معرفته قبل الانضمام</h2>
+            </div>
+
+            <div class="space-y-2 text-right">
+                <div class="content-card p-3.5">
+                    <h3 class="text-xs font-bold text-white mb-1">هل الانضمام إلى المجموعة مجاني فعلاً؟</h3>
+                    <p class="text-[11px] text-slate-400 leading-relaxed">
+                        نعم، الانضمام مجاني 100%. لن يطلب منك دفع أي رسوم اشتراك، ولن نطلب منك أي بيانات مصرفية أو شخصية حساسة.
+                    </p>
+                </div>
+
+                <div class="content-card p-3.5">
+                    <h3 class="text-xs font-bold text-white mb-1">هل تقدمون توصيات بيع أو شراء مباشرة؟</h3>
+                    <p class="text-[11px] text-slate-400 leading-relaxed">
+                        كلا. نحن منصة للدراسة والتحليل الإحصائي المحاسبي. نشارك الإفصاحات الرسمية والأرقام المعلنة، ويبقى قرار الشراء والبيع مسؤولية شخصية كاملة لكل مستثمر.
+                    </p>
+                </div>
+
+                <div class="content-card p-3.5">
+                    <h3 class="text-xs font-bold text-white mb-1">هل المجموعة مناسبة للمستثمر المبتدئ؟</h3>
+                    <p class="text-[11px] text-slate-400 leading-relaxed">
+                        بالتأكيد. يتم تبسيط مصطلحات القوائم المالية وشرح نسب الأرباح بلغة عربية ميسرة تساعد المبتدئ على فهم السوق وتجنب التداول العشوائي.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第 3 处核心转化卡片（底部收网） -->
+        <div class="content-card p-5 text-center border-t-2 border-t-[#25D366] bg-gradient-to-b from-[#111726] to-[#0a0f1d]">
+            <div class="w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center text-xl mx-auto mb-3">
+                <i class="fa-brands fa-whatsapp"></i>
+            </div>
+            <h3 class="text-sm font-bold text-white mb-1">مكانك محجوز بين نخبة المتداولين</h3>
+            <p class="text-xs text-slate-300 mb-4 leading-relaxed max-w-xs mx-auto">
+                اضغط على الزر أدناه للدخول الفوري ومطالعة تقويم التوزيعات النقدية والنقاشات النشطة لليوم.
+            </p>
+            <a href="https://chat.whatsapp.com/YOUR_GROUP_INVITE_CODE" 
+               target="_blank" 
+               class="btn-wa-glow w-full text-slate-950 font-black py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 text-sm shadow-lg">
+                <i class="fa-brands fa-whatsapp text-xl"></i>
+                <span>انضم إلى القروب عبر واتساب الآن</span>
+            </a>
+        </div>
+
+        <!-- 严密合规免责声明与页脚法律链接（Google Ads 审核核心保护） -->
+        <footer class="pt-4 text-center space-y-3">
+            <div class="p-3 bg-black/50 rounded-xl border border-slate-800 text-[10px] text-slate-500 text-right leading-relaxed">
+                <strong class="text-slate-400 block mb-1">إخلاء مسؤولية استثمارية ونظامية:</strong>
+                المعلومات والنقاشات الواردة في هذا الموقع والمجموعة الملحقة به مقدمة لأغراض التثقيف والدراسة المحاسبية العامة استناداً إلى إعلانات الأسواق المالية الرسمية (تداول وغيرها). لا يقدم الموقع أي استشارات استثمارية مرخصة، ولا توصيات بالشراء أو البيع، ولا يدير أي محافظ استثمارية. جميع القرارات الاستثمارية تقع على مسؤولية المستثمر وحده.
+            </div>
+
+            <div class="flex justify-center gap-5 text-slate-400 text-xs">
+                <button onclick="toggleModal('privacy')" class="hover:underline">سياسة الخصوصية</button>
+                <button onclick="toggleModal('terms')" class="hover:underline">شروط الخدمة</button>
+                <button onclick="toggleModal('contact')" class="hover:underline">اتصل بنا</button>
+            </div>
+
+            <p class="text-[10px] text-slate-600">© 2026 ملتقى المستثمر الخليجي المستقل. جميع الحقوق محفوظة.</p>
+        </footer>
+
+    </main>
+
+    <!-- 手机端常驻吸底栏：始终保证唯一行动点触手可及 -->
+    <div class="fixed bottom-0 left-0 right-0 p-3 bg-[#080c16]/95 border-t border-slate-800 backdrop-blur-md z-40 max-w-md mx-auto">
+        <a href="https://chat.whatsapp.com/YOUR_GROUP_INVITE_CODE" 
+           target="_blank" 
+           class="btn-wa-glow w-full text-slate-950 font-black py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 text-xs shadow-lg">
+            <i class="fa-brands fa-whatsapp text-lg"></i>
+            <span>انضم لمجتمع المتداولين عبر واتساب الآن</span>
+        </a>
     </div>
 
-    <!-- 首屏主 CTA 按钮 -->
-    <div class="mb-10">
-      <!-- 请将 966500000000 替换为您的 WhatsApp 业务号码 -->
-      <a href="https://chat.whatsapp.com/G2jiDHOInvWFPVr0dZjlQQ" 
-         target="_blank" 
-         class="w-full block neon-cyan-purple-gradient text-white font-bold text-base py-4 px-6 rounded-xl cyber-btn-glow hover:opacity-95 transform active:scale-95 transition-all">
-        <div class="flex items-center justify-center gap-3">
-          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-          </svg>
-          <span>تواصل عبر واتساب لاستلام التقرير الذكي</span>
+    <!-- 法律条款弹窗 -->
+    <div id="legalModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 hidden">
+        <div class="content-card p-5 rounded-2xl max-w-xs w-full text-right text-xs leading-relaxed border border-slate-700 bg-slate-900">
+            <div class="flex justify-between items-center mb-2 pb-1 border-b border-slate-800">
+                <span id="modalTitle" class="font-bold text-white text-sm"></span>
+                <button onclick="toggleModal()" class="text-slate-400 hover:text-white">✕</button>
+            </div>
+            <p id="modalBody" class="text-slate-300 text-[11px]"></p>
         </div>
-      </a>
-      <span class="text-[11px] text-slate-400 mt-2 block font-mono">ENCRYPTED DATA · NO REGISTRATION NEEDED</span>
     </div>
 
-    <!-- 3. AI 算法工作逻辑（极客卡片） -->
-    <div class="text-right border-t border-slate-800/80 pt-6">
-      <h3 class="text-xs font-bold text-cyan-400 uppercase tracking-wider mb-3">كيف يعمل النموذج؟</h3>
-      <div class="grid grid-cols-2 gap-3 text-xs">
-        <div class="cyber-border rounded-xl p-3">
-          <span class="text-purple-400 font-bold block mb-1">1. تجميع البيانات</span>
-          <p class="text-slate-400 text-[11px] leading-relaxed">تحليل تلقائي للإفصاحات الرسمية وتغير نسب التملك بالسوق.</p>
-        </div>
-        <div class="cyber-border rounded-xl p-3">
-          <span class="text-cyan-400 font-bold block mb-1">2. المعالجة الفورية</span>
-          <p class="text-slate-400 text-[11px] leading-relaxed">إرسال الملخص والرسوم البيانية للمستخدم عبر محادثة واتساب آمنة.</p>
-        </div>
-      </div>
-    </div>
+    <!-- 弹窗控制逻辑 -->
+    <script>
+        const modal = document.getElementById('legalModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
 
-  </main>
+        const docs = {
+            privacy: { 
+                title: "سياسة الخصوصية (Privacy Policy)", 
+                text: "نحن نحرص على خصوصية جميع الزوار والأعضاء. لا نطلب أو نخزن أي أرقام حسابات أو بيانات مصرفية أو هويات شخصية. الانضمام إلى مجموعة الواتساب يتم برغبة المستخدم الكاملة لمتابعة النقاشات العامة." 
+            },
+            terms: { 
+                title: "شروط الخدمة (Terms of Service)", 
+                text: "جميع الإحصاءات والبيانات مستقاة من إعلانات البورصات الرسمية بدول مجلس التعاون. لا يقدم المجتمع أي توصيات ملزمة أو إدارة أموال. تقع مسؤولية القرارات المالية على المستثمر وحده." 
+            },
+            contact: { 
+                title: "اتصل بنا (Contact Us)", 
+                text: "لأي استفسارات عامة أو اقتراحات حول المحتوى الأكاديمي، يرجى التواصل عبر: support@gcc-investors.top" 
+            }
+        };
 
-  <!-- 4. 底部合规与免责声明 (Strict FinTech Compliance) -->
-  <footer class="max-w-xl mx-auto px-4 py-6 text-center text-[10px] text-slate-400 border-t border-slate-900 mt-6 leading-relaxed">
-    <p class="mb-2">
-      <strong>إخلاء مسؤولية تقنية ونظامية:</strong> النماذج الخوارزمية المعتمدة على الذكاء الاصطناعي هي أدوات حوسبية تجريبية لقراءة البيانات العامة والمؤشرات التاريخية. لا تقدم الخوارزميات أي استشارات مالية أو ضمانات للأرباح. أسواق المال تنطوي على مخاطر الخسارة.
-    </p>
-    <p class="text-slate-400 font-mono">© 2026 TADAWUL AI ENGINE · ALL RIGHTS RESERVED</p>
-  </footer>
-
-  <!-- 5. 移动端固定底部悬浮转化条 (Sticky Neon Cyber Bar) -->
-  <div class="fixed bottom-0 left-0 right-0 p-3 bg-[#05060A]/95 backdrop-blur border-t border-cyan-950/80 z-50 flex items-center justify-center">
-    <a href="https://chat.whatsapp.com/G2jiDHOInvWFPVr0dZjlQQ" 
-       target="_blank" 
-       class="w-full max-w-md neon-cyan-purple-gradient text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-sm cyber-btn-glow active:scale-95 transition-all">
-      <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
-        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-      </svg>
-      <span>طلب نسخة التقرير الذكي عبر واتساب</span>
-    </a>
-  </div>
-
+        function toggleModal(type) {
+            if (!type) { modal.classList.add('hidden'); return; }
+            modalTitle.innerText = docs[type].title;
+            modalBody.innerText = docs[type].text;
+            modal.classList.remove('hidden');
+        }
+    </script>
 </body>
 </html>
