@@ -10,30 +10,34 @@
 
       gtag('config', 'AW-18450562699');
 
-      // 核心出站点击转化回传函数（含位置标记与防卡顿跳转）
+      // 稳定防丢单、防卡死、防连击的转化回传函数
+      var isRedirecting = false;
       function gtag_report_conversion(url, placement) {
-        var redirected = false;
+        if (isRedirecting) return false;
+        isRedirecting = true;
+
         function navigate() {
-          if (!redirected) {
-            redirected = true;
-            if (typeof(url) != 'undefined') {
-              window.location.href = url;
-            }
+          if (typeof(url) !== 'undefined' && url) {
+            window.location.href = url;
           }
         }
 
-        gtag('event', 'conversion', {
-            'send_to': 'AW-18450562699/mKNMCNGq8PocEIv99N1E',
-            'value': 1.0,
-            'currency': 'USD',
-            'event_label': placement || 'unknown',
-            'event_callback': function() {
-              navigate();
-            }
-        });
+        try {
+          gtag('event', 'conversion', {
+              'send_to': 'AW-18450562699/mKNMCNGq8PocEIv99N1E',
+              'value': 1.0,
+              'currency': 'USD',
+              'event_label': placement || 'unknown',
+              'event_callback': function() {
+                navigate();
+              }
+          });
+        } catch(e) {
+          navigate();
+        }
 
-        // 600ms 超时强制跳转，防止 Google 接口卡顿导致用户无法进入 WhatsApp
-        setTimeout(navigate, 600);
+        // 500ms 超时强制跳转兜底
+        setTimeout(navigate, 500);
         return false;
       }
     </script>
@@ -102,7 +106,7 @@
 </head>
 <body class="min-h-screen pb-24">
 
-    <!-- 顶部状态栏：客观展示市场开盘状态与指数 -->
+    <!-- 顶部状态栏 -->
     <div class="bg-black/90 border-b border-slate-800 py-2 px-4 text-xs sticky top-0 z-30 backdrop-blur-md">
         <div class="max-w-md mx-auto flex justify-between items-center text-slate-300">
             <div class="flex items-center gap-2">
@@ -167,7 +171,7 @@
 
     <main class="p-4 max-w-md mx-auto space-y-6">
 
-        <!-- 板块一：模拟进群后的真实交流场景 -->
+        <!-- 板块一：模拟进群场景 -->
         <section class="space-y-3">
             <div class="text-right">
                 <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider block">معاينة حية من الداخل</span>
@@ -177,7 +181,7 @@
 
             <div class="content-card p-4 space-y-3.5">
                 
-                <!-- 问答模拟 1：分红时间节点 -->
+                <!-- 问答模拟 1 -->
                 <div class="space-y-2">
                     <div class="chat-bubble-user p-3 rounded-xl text-right text-xs max-w-[90%] mr-auto">
                         <span class="text-[10px] text-slate-400 block mb-0.5 font-bold">أبو فهد (مستثمر في تاسي):</span>
@@ -191,7 +195,7 @@
 
                 <div class="border-t border-slate-800/80 my-2"></div>
 
-                <!-- 问答模拟 2：银行股与资产稳健度 -->
+                <!-- 问答模拟 2 -->
                 <div class="space-y-2">
                     <div class="chat-bubble-user p-3 rounded-xl text-right text-xs max-w-[90%] mr-auto">
                         <span class="text-[10px] text-slate-400 block mb-0.5 font-bold">مستثمر من الإمارات:</span>
@@ -220,7 +224,7 @@
             </a>
         </div>
 
-        <!-- 板块二：进群好处与核心权益体系 -->
+        <!-- 板块二：核心权益体系 -->
         <section class="space-y-3">
             <div class="text-right">
                 <span class="text-[10px] font-bold text-amber-400 uppercase tracking-wider block">القيمة المضافة للأعضاء</span>
