@@ -10,7 +10,7 @@
 
       gtag('config', 'AW-18450562699');
 
-      // 稳定防丢单、防卡死、防连击的转化回传函数
+      // 稳定防丢单、防卡死、防连击的出站点击转化函数 (AW-18450562699)
       var isRedirecting = false;
       function gtag_report_conversion(url, placement) {
         if (isRedirecting) return false;
@@ -24,9 +24,7 @@
 
         try {
           gtag('event', 'conversion', {
-              'send_to': 'AW-18450562699/mKNMCNGq8PocEIv99N1E',
-              'value': 1.0,
-              'currency': 'USD',
+              'send_to': 'AW-18450562699/67JdCNjemvwcEIv99N1E',
               'event_label': placement || 'unknown',
               'event_callback': function() {
                 navigate();
@@ -36,7 +34,7 @@
           navigate();
         }
 
-        // 500ms 超时强制跳转兜底
+        // 500ms 超时强制跳转兜底，避免网络波动导致用户无法进群
         setTimeout(navigate, 500);
         return false;
       }
@@ -156,7 +154,7 @@
             </div>
         </div>
 
-        <!-- 社区性质与准则卡片 -->
+        <!-- 社区性质卡片 -->
         <div class="content-card p-4 text-right border-r-4 border-r-amber-500 mb-6">
             <div class="flex items-center gap-2 mb-1.5 text-amber-400">
                 <i class="fa-solid fa-circle-info text-sm"></i>
@@ -224,7 +222,7 @@
             </a>
         </div>
 
-        <!-- 板块二：核心权益体系 -->
+        <!-- 板块二：进群好处与核心权益 -->
         <section class="space-y-3">
             <div class="text-right">
                 <span class="text-[10px] font-bold text-amber-400 uppercase tracking-wider block">القيمة المضافة للأعضاء</span>
