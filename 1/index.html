@@ -4,6 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>مجتمع تداول وأسواق المال الخليجية | ملتقى المستثمر 2026</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18450562699"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-18450562699');
+    </script>
+
+    <!-- Event snippet for 出站点击 conversion page -->
+    <script>
+      function gtag_report_conversion(url) {
+        var callbackCalled = false;
+        var callback = function () {
+          if (callbackCalled) return;
+          callbackCalled = true;
+          if (typeof(url) != 'undefined') {
+            window.location.href = url;
+          }
+        };
+        gtag('event', 'conversion', {
+            'send_to': 'AW-18450562699/67JdCNjemvwcEIv99N1E',
+            'event_callback': callback
+        });
+        window.setTimeout(callback, 1200);
+        return false;
+      }
+    </script>
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Arabic Font: Readex Pro & JetBrains Mono -->
@@ -101,9 +132,10 @@
             مساحة حوارية موثوقة تضم أكثر من 3,800 متداول ومستثمر، مخصصة لمتابعة تقويم الأرباح النقدية المعتمدة، وقراءات الدفاتر المحاسبية، ورصد السيولة في تاسي والأسواق المجاورة.
         </p>
 
-        <!-- 第 1 处 WhatsApp 转化入口（首屏） -->
+        <!-- 第 1 处 WhatsApp 转化入口（首屏直接跳转 + 回传） -->
         <div class="mb-6">
             <a href="https://chat.whatsapp.com/IuFswiMYnZuL4vTzcnZfhQ" 
+               onclick="return gtag_report_conversion(this.href);" 
                target="_blank" 
                class="btn-wa-glow w-full text-slate-950 font-black py-4 px-6 rounded-2xl flex items-center justify-center gap-3 text-base shadow-xl">
                 <i class="fa-brands fa-whatsapp text-2xl"></i>
@@ -131,7 +163,7 @@
 
     <main class="p-4 max-w-md mx-auto space-y-6">
 
-        <!-- 板块一：模拟进群后的真实交流场景（消除陌生感与防御心理） -->
+        <!-- 板块一：模拟进群后的真实交流场景 -->
         <section class="space-y-3">
             <div class="text-right">
                 <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider block">معاينة حية من الداخل</span>
@@ -174,9 +206,10 @@
         <div class="p-4 rounded-2xl bg-gradient-to-r from-emerald-950/40 to-slate-900 border border-emerald-500/30 text-center">
             <h3 class="text-xs font-bold text-white mb-1">هل لديك استفسار حول أحد الأسهم أو إفصاحات الأرباح؟</h3>
             <p class="text-[11px] text-slate-300 mb-3">
-                اطرح سؤالك في أي وقت داخل المجموعة وتلقَّ قراءة محاسبية موثقة من زملائك المستثمرين.
+                اطرح سؤالك في أي وقت داخل المجموعة وتلقَّ قراءة محاسبية موثقة من زملائك المستثمرين.
             </p>
             <a href="https://chat.whatsapp.com/IuFswiMYnZuL4vTzcnZfhQ" 
+               onclick="return gtag_report_conversion(this.href);" 
                target="_blank" 
                class="btn-wa-glow inline-flex items-center justify-center gap-2 text-slate-950 font-black py-2.5 px-6 rounded-xl text-xs">
                 <i class="fa-brands fa-whatsapp text-lg"></i>
@@ -184,7 +217,7 @@
             </a>
         </div>
 
-        <!-- 板块二：进群好处与核心权益体系 (What You Get) -->
+        <!-- 板块二：进群好处与核心权益体系 -->
         <section class="space-y-3">
             <div class="text-right">
                 <span class="text-[10px] font-bold text-amber-400 uppercase tracking-wider block">القيمة المضافة للأعضاء</span>
@@ -312,6 +345,7 @@
                 اضغط على الزر أدناه للدخول الفوري ومطالعة تقويم التوزيعات النقدية والنقاشات النشطة لليوم.
             </p>
             <a href="https://chat.whatsapp.com/IuFswiMYnZuL4vTzcnZfhQ" 
+               onclick="return gtag_report_conversion(this.href);" 
                target="_blank" 
                class="btn-wa-glow w-full text-slate-950 font-black py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 text-sm shadow-lg">
                 <i class="fa-brands fa-whatsapp text-xl"></i>
@@ -319,7 +353,7 @@
             </a>
         </div>
 
-        <!-- 严密合规免责声明与页脚法律链接（Google Ads 审核核心保护） -->
+        <!-- 严密合规免责声明与页脚法律链接 -->
         <footer class="pt-4 text-center space-y-3">
             <div class="p-3 bg-black/50 rounded-xl border border-slate-800 text-[10px] text-slate-500 text-right leading-relaxed">
                 <strong class="text-slate-400 block mb-1">إخلاء مسؤولية استثمارية ونظامية:</strong>
@@ -327,9 +361,9 @@
             </div>
 
             <div class="flex justify-center gap-5 text-slate-400 text-xs">
-                <button onclick="toggleModal('privacy')" class="hover:underline">سياسة الخصوصية</button>
-                <button onclick="toggleModal('terms')" class="hover:underline">شروط الخدمة</button>
-                <button onclick="toggleModal('contact')" class="hover:underline">اتصل بنا</button>
+                <button onclick="toggleModal('privacy')" class="hover:underline bg-transparent border-0 text-slate-400 cursor-pointer">سياسة الخصوصية</button>
+                <button onclick="toggleModal('terms')" class="hover:underline bg-transparent border-0 text-slate-400 cursor-pointer">شروط الخدمة</button>
+                <button onclick="toggleModal('contact')" class="hover:underline bg-transparent border-0 text-slate-400 cursor-pointer">اتصل بنا</button>
             </div>
 
             <p class="text-[10px] text-slate-600">© 2026 ملتقى المستثمر الخليجي المستقل. جميع الحقوق محفوظة.</p>
@@ -337,9 +371,10 @@
 
     </main>
 
-    <!-- 手机端常驻吸底栏：始终保证唯一行动点触手可及 -->
+    <!-- 手机端常驻吸底栏 -->
     <div class="fixed bottom-0 left-0 right-0 p-3 bg-[#080c16]/95 border-t border-slate-800 backdrop-blur-md z-40 max-w-md mx-auto">
         <a href="https://chat.whatsapp.com/IuFswiMYnZuL4vTzcnZfhQ" 
+           onclick="return gtag_report_conversion(this.href);" 
            target="_blank" 
            class="btn-wa-glow w-full text-slate-950 font-black py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 text-xs shadow-lg">
             <i class="fa-brands fa-whatsapp text-lg"></i>
@@ -352,9 +387,9 @@
         <div class="content-card p-5 rounded-2xl max-w-xs w-full text-right text-xs leading-relaxed border border-slate-700 bg-slate-900">
             <div class="flex justify-between items-center mb-2 pb-1 border-b border-slate-800">
                 <span id="modalTitle" class="font-bold text-white text-sm"></span>
-                <button onclick="toggleModal()" class="text-slate-400 hover:text-white">✕</button>
+                <button onclick="toggleModal()" class="text-slate-400 hover:text-white bg-transparent border-0 cursor-pointer">✕</button>
             </div>
-            <p id="modalBody" class="text-slate-300 text-[11px]"></p>
+            <p id="modalBody" class="text-slate-300 text-[11px] mt-2"></p>
         </div>
     </div>
 
